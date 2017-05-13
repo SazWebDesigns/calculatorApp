@@ -27,6 +27,11 @@ function createButtons(parent){
         buttons[i].style.width = '50px';
         buttons[i].style.height = '50px';
         buttons[i].className = "text-center btn btn-primary col-xs-3 mx-auto mb-2"
+        buttons[i].addEventListener('click', function(e)  {
+        e.preventDefault();
+            calculation.push(e.target.textContent);
+            displayCalculation();
+        })
     }
     row1 = createElement('div', 'className', 'row col-xs-12');
     row1.appendChild(buttons[9]);
@@ -58,18 +63,35 @@ function createButtons(parent){
     parent.insertBefore(row4, row3);
 }
 
-
+let calculation = []
 calculator  = createElement('div', 'className', 'container pt-2');
 calculator.style.width = '300px';
 calculator.style.height = '360px';
 calculator.style.backgroundColor = 'lightgray';
-display = createElement('div', 'className', 'row bg-inverse mt-2 mb-4  rounded mx-auto')
+display = createElement('div', 'className', 'row bg-inverse text-white mt-2 mb-4  rounded mx-auto')
 display.style.height = '80px';
 display.style.width = '250px';
 display.style.margin = '2em';
+displayCalculation();
 calculator.appendChild(display);
 createButtons(calculator);
 body = document.querySelector('body');
 scriptTags = body.children;
 body.insertBefore(calculator, scriptTags[0]);
+
+
+function displayCalculation(){
+    console.log(calcCalculation())
+    display.textContent = calcCalculation();
+}
+
+function calcCalculation(){
+    var calc = '';
+    for(let i = 0; i < calculation.length;i++)
+    {
+        calc +=  calculation[i] + " ";
+    }
+    return calc;
+
+}
 
