@@ -24,7 +24,9 @@ function createButtons(parent){
                 createElement('buttons', 'textContent', '=')
     ];
     for(let i = 0; i < buttons.length; i++){
-        buttons[i].className = "text-center btn btn-primary col-xs-3"
+        buttons[i].style.width = '50px';
+        buttons[i].style.height = '50px';
+        buttons[i].className = "text-center btn btn-primary col-xs-3 mx-auto mb-2"
     }
     row1 = createElement('div', 'className', 'row col-xs-12');
     row1.appendChild(buttons[9]);
@@ -35,6 +37,7 @@ function createButtons(parent){
 
     row2 = createElement('div', 'className', 'row col-xs-12');
     row2.appendChild(buttons[0]);
+
     row2.appendChild(buttons[1]);
     row2.appendChild(buttons[2]);
     row2.appendChild(buttons[11]);
@@ -56,10 +59,15 @@ function createButtons(parent){
 }
 
 
-calculator  = createElement('div', 'className', 'container');
-calculator.style.width = '400px';
-calculator.style.height = '600px';
+calculator  = createElement('div', 'className', 'container pt-2');
+calculator.style.width = '300px';
+calculator.style.height = '360px';
 calculator.style.backgroundColor = 'lightgray';
+display = createElement('div', 'className', 'row bg-inverse mt-2 mb-4  rounded mx-auto')
+display.style.height = '80px';
+display.style.width = '250px';
+display.style.margin = '2em';
+calculator.appendChild(display);
 createButtons(calculator);
 body = document.querySelector('body');
 scriptTags = body.children;
