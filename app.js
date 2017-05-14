@@ -31,31 +31,32 @@ function createButtons(parent){
         e.preventDefault();
             calculation.push(e.target.textContent);
             displayCalculation();
+            if(e.target.textContent == '=')
+                displayTotal();
         })
     }
-    row1 = createElement('div', 'className', 'row col-xs-12');
+    row1 = createElement('div', 'className', 'row col-12 mx-auto');
     row1.appendChild(buttons[9]);
     row1.appendChild(buttons[14]);
     row1.appendChild(buttons[15]);
     row1.appendChild(buttons[10]);
     parent.appendChild(row1);
 
-    row2 = createElement('div', 'className', 'row col-xs-12');
+    row2 = createElement('div', 'className', 'row col-12 mx-auto');
     row2.appendChild(buttons[0]);
-
     row2.appendChild(buttons[1]);
     row2.appendChild(buttons[2]);
     row2.appendChild(buttons[11]);
     parent.insertBefore(row2, row1);
 
-    row3 = createElement('div', 'className', 'row col-xs-12');
+    row3 = createElement('div', 'className', 'row col-12 mx-auto');
     row3.appendChild(buttons[3]);
     row3.appendChild(buttons[4]);
     row3.appendChild(buttons[5]);
     row3.appendChild(buttons[12]);
     parent.insertBefore(row3, row2);
 
-    row4 = createElement('div', 'className', 'row col-xs-12');
+    row4 = createElement('div', 'className', 'row col-12 mx-auto');
     row4.appendChild(buttons[6]);
     row4.appendChild(buttons[7]);
     row4.appendChild(buttons[8]);
@@ -73,8 +74,8 @@ display = createElement('div', 'className', 'row bg-inverse text-white mt-2 mb-4
 display.style.height = '80px';
 display.style.width = '250px';
 display.style.margin = '2em';
-calcShow = createElement('div', 'className', 'col-xs-12 ml-1 width text-left')
-totalShow = createElement('div', 'clssName', 'col-xs-12 text-right')
+calcShow = createElement('div', 'className', 'col-12 d-block ')
+totalShow = createElement('div', 'className', 'col-12 d-block text-right')
 displayCalculation();
 display.appendChild(calcShow);
 display.appendChild(totalShow);
@@ -118,8 +119,52 @@ function showCalculation(){
     return calc;
 }
 
-function diplayTotal(){
+function displayTotal(){
     let cal = showCalculation();
-    let calArr
+    let calArr = cal.split(" ");
+    let total = 0;
+    let firstCalc = true;
+    for(let i = 0; i < calArr.length; i++){
+       if(calArr[i] == '*'){
+            if(i+1 < calArr.length && firstCalc){
+                total = parseInt(calArr[i-1]) / parseInt(calArr[i+1]);
+                firstCalc = false;
+            }
+            else if(i+1 < calArr.length){
+                total *= parseInt(calArr[i+1]);
+            }
+
+       }
+
+       else if(calArr[i] == '/'){
+            if(i+1 < calArr.length && firstCalc){
+                total = parseInt(calArr[i-1]) / parseInt(calArr[i+1]);
+                firstCalc = false;
+            }
+            else if(i+1 < calArr.length){
+                total /= parseInt(calArr[i+1])
+            }
+       }
+       else if(calArr[i] == '+'){
+            if(i+1 < calArr.length && firstCalc){
+                total = parseInt(calArr[i-1]) + parseInt(calArr[i+1]);
+                firstCalc = false;
+            }
+            else if(i+1 < calArr.length){
+                total += parseInt(calArr[i+1])
+            }
+        }
+        else if(calArr[i] == '-'){
+
+            if(i+1 < calArr.length && firstCalc){
+                total = parseInt(calArr[i-1]) - parseInt(calArr[i+1]);
+                firstCalc = false;
+            }
+            else if(i+1 < calArr.length){
+                total -= parseInt(calArr[i+1]);
+            }
+        }
+    }
+    totalShow.textContent = total;
 }
 
