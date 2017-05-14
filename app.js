@@ -64,6 +64,7 @@ function createButtons(parent){
 }
 
 let calculation = []
+let operators = ['+', '-', '*', '/', '='];
 calculator  = createElement('div', 'className', 'container pt-2');
 calculator.style.width = '300px';
 calculator.style.height = '360px';
@@ -72,7 +73,11 @@ display = createElement('div', 'className', 'row bg-inverse text-white mt-2 mb-4
 display.style.height = '80px';
 display.style.width = '250px';
 display.style.margin = '2em';
+calcShow = createElement('div', 'className', 'col-xs-12 ml-1 width text-left')
+totalShow = createElement('div', 'clssName', 'col-xs-12 text-right')
 displayCalculation();
+display.appendChild(calcShow);
+display.appendChild(totalShow);
 calculator.appendChild(display);
 createButtons(calculator);
 body = document.querySelector('body');
@@ -81,17 +86,40 @@ body.insertBefore(calculator, scriptTags[0]);
 
 
 function displayCalculation(){
-    console.log(calcCalculation())
-    display.textContent = calcCalculation();
+    calcShow.textContent = showCalculation();
 }
 
-function calcCalculation(){
-    var calc = '';
+function showCalculation(){
+    var calc = ' ';
+    var calcArray = [];
+    let index = 0;
+    var operand = false;
     for(let i = 0; i < calculation.length;i++)
     {
-        calc +=  calculation[i] + " ";
+        for(let j = 0; j < operators.length; j++){
+            if(calculation[i] != operators[j]){
+                operand = false;
+            }
+            else{
+                operand = true;
+                break;
+             }
+        }
+
+        if(operand){
+            calc += " "+calculation[i]+" ";
+        }
+        else{
+             calc += calculation[i];
+             operand = !operand;
+        }
+
     }
     return calc;
+}
 
+function diplayTotal(){
+    let cal = showCalculation();
+    let calArr
 }
 
